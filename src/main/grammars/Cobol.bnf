@@ -1,0 +1,23 @@
+{
+  parserClass="com.github.tghnx1.cobolplugin.parser.CobolParser"
+
+  psiPackage="com.github.tghnx1.cobolplugin.psi"
+  psiImplPackage="com.github.tghnx1.cobolplugin.psi.impl"
+
+  elementTypeHolderClass="com.github.tghnx1.cobolplugin.psi.CobolTypes"
+  elementTypeClass="com.github.tghnx1.cobolplugin.psi.CobolElementType"
+  tokenTypeClass="com.github.tghnx1.cobolplugin.psi.CobolTokenType"
+}
+
+cobolFile ::= line*
+
+line ::= LINE_NUMBER statement DOT
+
+statement ::=
+      IDENTIFICATION DIVISION
+    | PROGRAM_ID IDENTIFIER
+    | DATA DIVISION
+    | WORKING_STORAGE SECTION
+    | PROCEDURE DIVISION
+    | STOP RUN
+    | NUMBER

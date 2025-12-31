@@ -9,7 +9,11 @@
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.tghnx1.cobolplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
-        <postStartupActivity implementation="com.github.tghnx1.cobolplugin.startup.MyProjectActivity" />
+        <fileType
+                name="Cobol"
+                implementationClass="com.github.tghnx1.cobolplugin.CobolFileType"
+                fieldName="INSTANCE"
+                language="Cobol"
+                extensions="cob;cbl"/>
     </extensions>
 </idea-plugin>
