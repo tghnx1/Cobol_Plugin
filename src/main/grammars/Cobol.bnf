@@ -9,15 +9,6 @@
   tokenTypeClass="com.github.tghnx1.cobolplugin.psi.CobolTokenType"
 }
 
-cobolFile ::= line*
+cobolFile ::= item*
 
-line ::= LINE_NUMBER statement DOT
-
-statement ::=
-      IDENTIFICATION DIVISION
-    | PROGRAM_ID IDENTIFIER
-    | DATA DIVISION
-    | WORKING_STORAGE SECTION
-    | PROCEDURE DIVISION
-    | STOP RUN
-    | NUMBER
+item ::= IDENTIFIER | NUMBER

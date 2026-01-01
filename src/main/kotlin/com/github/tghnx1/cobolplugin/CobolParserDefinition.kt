@@ -13,6 +13,8 @@ import com.intellij.psi.tree.TokenSet
 import com.github.tghnx1.cobolplugin.lexer.CobolLexerAdapter
 import com.github.tghnx1.cobolplugin.parser.CobolParser
 import com.github.tghnx1.cobolplugin.psi.CobolFile
+import com.github.tghnx1.cobolplugin.psi.CobolTypes
+
 
 class CobolParserDefinition : ParserDefinition {
 
@@ -33,7 +35,8 @@ class CobolParserDefinition : ParserDefinition {
     override fun getStringLiteralElements() = TokenSet.EMPTY
 
     override fun createElement(node: ASTNode): PsiElement =
-        node.psi
+        CobolTypes.Factory.createElement(node)
+
 
     override fun createFile(viewProvider: FileViewProvider): PsiFile =
         CobolFile(viewProvider)
