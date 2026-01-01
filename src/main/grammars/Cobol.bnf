@@ -11,4 +11,6 @@
 
 cobolFile ::= item*
 
-item ::= IDENTIFIER | NUMBER
+item ::= IDENTIFIER
+        | NUMBER
+        | DOT

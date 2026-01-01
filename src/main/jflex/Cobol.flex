@@ -16,10 +16,17 @@ import com.github.tghnx1.cobolplugin.psi.CobolTypes;
 
 %%
 
-[ \t\r\n]+      { return TokenType.WHITE_SPACE; }
+/* whitespace */
+[ \t\r\n]+            { return TokenType.WHITE_SPACE; }
 
-[0-9]+          { return CobolTypes.NUMBER; }
+/* numbers */
+[0-9]+                { return CobolTypes.NUMBER; }
 
-[A-Z]+          { return CobolTypes.IDENTIFIER; }
+/* identifiers */
+[A-Z][A-Z0-9-]*       { return CobolTypes.IDENTIFIER; }
 
-.               { return TokenType.BAD_CHARACTER; }
+/* dot = end of statement */
+"."                   { return CobolTypes.DOT; }
+
+/* anything else */
+.                     { return TokenType.BAD_CHARACTER; }
