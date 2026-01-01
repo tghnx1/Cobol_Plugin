@@ -15,5 +15,8 @@
                 fieldName="INSTANCE"
                 language="Cobol"
                 extensions="cob;cbl"/>
+        <lang.parserDefinition
+                language="Cobol"
+                implementationClass="com.github.tghnx1.cobolplugin.CobolParserDefinition"/>
     </extensions>
 </idea-plugin>
