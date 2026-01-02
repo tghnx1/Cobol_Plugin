@@ -1,5 +1,17 @@
 # Cobol IntelliJ Plugin (Minimal Subset)
 
+<!-- Plugin description -->
+Minimal IntelliJ IDEA plugin providing basic COBOL language support.
+
+Features:
+- COBOL file type recognition (.cob)
+- Lexer and parser generated via Grammar-Kit and JFlex
+- Basic PSI structure
+- Minimal syntax highlighting (identifiers, numbers, strings, operators)
+
+This plugin is implemented as a test task and does not aim to be a full COBOL implementation.
+<!-- Plugin description end -->
+
 This project implements a **minimal IntelliJ IDEA plugin** that supports parsing and syntax highlighting for a **minimal subset of COBOL**, as required by **Task #2**.
 
 The goal of the assignment is **not** to implement full COBOL support, but to demonstrate understanding of the IntelliJ language plugin pipeline:
