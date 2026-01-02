@@ -18,5 +18,8 @@
         <lang.parserDefinition
                 language="Cobol"
                 implementationClass="com.github.tghnx1.cobolplugin.CobolParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="Cobol"
+                implementationClass="com.github.tghnx1.cobolplugin.highlighting.CobolSyntaxHighlighterFactory"/>
     </extensions>
 </idea-plugin>
