@@ -8,12 +8,16 @@ import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighter
 import com.intellij.psi.tree.IElementType
 
+private val OPERATOR_KEYS =
+    arrayOf(DefaultLanguageHighlighterColors.OPERATION_SIGN) 
+
 class CobolSyntaxHighlighter : SyntaxHighlighter {
     override fun getHighlightingLexer(): Lexer {
         return CobolLexerAdapter()
     }
 
     override fun getTokenHighlights(tokenType: IElementType?): Array<TextAttributesKey?> {
+
         if (tokenType === CobolTypes.NUMBER) {
             return NUMBER_KEYS
         }
@@ -25,6 +29,15 @@ class CobolSyntaxHighlighter : SyntaxHighlighter {
         if (tokenType === CobolTypes.IDENTIFIER) {
             return IDENTIFIER_KEYS
         }
+        if (
+            tokenType == CobolTypes.DOT ||
+            tokenType == CobolTypes.EQUALS ||
+            tokenType == CobolTypes.LPAREN ||
+            tokenType == CobolTypes.RPAREN
+        ) {
+            return OPERATOR_KEYS
+        }
+
 
         return EMPTY_KEYS
     }
