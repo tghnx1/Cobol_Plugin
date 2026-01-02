@@ -42,4 +42,12 @@ class CobolSyntaxHighlighter : SyntaxHighlighter {
     }
 
     companion object {
-        private val NUMBER_KEYS = arrayOf<TextAttributesK
+        private val NUMBER_KEYS = arrayOf<TextAttributesKey?>(DefaultLanguageHighlighterColors.NUMBER)
+
+        private val STRING_KEYS = arrayOf<TextAttributesKey?>(DefaultLanguageHighlighterColors.STRING)
+
+        private val IDENTIFIER_KEYS = arrayOf<TextAttributesKey?>(DefaultLanguageHighlighterColors.IDENTIFIER)
+
+        private val EMPTY_KEYS = arrayOfNulls<TextAttributesKey>(0)
+    }
+}

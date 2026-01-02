@@ -1,52 +1,107 @@
-# Cobol_Plugin
+# Cobol IntelliJ Plugin (Minimal Subset)
 
-![Build](https://github.com/tghnx1/Cobol_Plugin/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
+This project implements a **minimal IntelliJ IDEA plugin** that supports parsing and syntax highlighting for a **minimal subset of COBOL**, as required by **Task #2**.
 
-## Template ToDo list
-- [x] Create a new [IntelliJ Platform Plugin Template][template] project.
-- [ ] Get familiar with the [template documentation][template].
-- [ ] Adjust the [pluginGroup](./gradle.properties) and [pluginName](./gradle.properties), as well as the [id](./src/main/resources/META-INF/plugin.xml) and [sources package](./src/main/kotlin).
-- [ ] Adjust the plugin description in `README` (see [Tips][docs:plugin-description])
-- [ ] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html?from=IJPluginTemplate).
-- [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
-- [ ] Set the `MARKETPLACE_ID` in the above README badges. You can obtain it once the plugin is published to JetBrains Marketplace.
-- [ ] Set the [Plugin Signing](https://plugins.jetbrains.com/docs/intellij/plugin-signing.html?from=IJPluginTemplate) related [secrets](https://github.com/JetBrains/intellij-platform-plugin-template#environment-variables).
-- [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html?from=IJPluginTemplate).
-- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
-- [ ] Configure the [CODECOV_TOKEN](https://docs.codecov.com/docs/quick-start) secret for automated test coverage reports on PRs
-
-<!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
-
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
-
-To keep everything working, do not remove `<!-- ... -->` sections. 
-<!-- Plugin description end -->
-
-## Installation
-
-- Using the IDE built-in plugin system:
-
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "Cobol_Plugin"</kbd> >
-  <kbd>Install</kbd>
-
-- Using JetBrains Marketplace:
-
-  Go to [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID) and install it by clicking the <kbd>Install to ...</kbd> button in case your IDE is running.
-
-  You can also download the [latest release](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID/versions) from JetBrains Marketplace and install it manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
-
-- Manually:
-
-  Download the [latest release](https://github.com/tghnx1/Cobol_Plugin/releases/latest) and install it manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
-
+The goal of the assignment is **not** to implement full COBOL support, but to demonstrate understanding of the IntelliJ language plugin pipeline:
+lexer → parser → PSI → syntax highlighting.
 
 ---
-Plugin based on the [IntelliJ Platform Plugin Template][template].
 
-[template]: https://github.com/JetBrains/intellij-platform-plugin-template
-[docs:plugin-description]: https://plugins.jetbrains.com/docs/intellij/plugin-user-experience.html#plugin-description-and-presentation
+## Implemented Features
+
+### Language Support
+- Custom `Cobol` language definition
+- File type support for `.cob` and `.cbl`
+
+### Lexer
+- Implemented using **JFlex**
+- Tokenizes the minimal set required to parse the provided COBOL example:
+  - `NUMBER`
+  - `IDENTIFIER`
+  - `STRING_LITERAL`
+  - `DOT`
+  - `EQUALS`
+  - `LPAREN`, `RPAREN`
+
+### Parser & Grammar
+- Grammar implemented using **IntelliJ Grammar Kit**
+- Minimal grammar that correctly parses the provided COBOL code
+- Line numbers (`01`, `02`, etc.) are parsed as part of the code, as required
+
+### Syntax Highlighting
+- Implemented via `SyntaxHighlighter`
+- Highlighted elements:
+  - Numbers
+  - String literals
+  - Identifiers
+- Operators and punctuation use default styling
+
+---
+
+## Supported COBOL Example
+
+The plugin correctly parses and highlights the following code:
+
+```cobol
+01 IDENTIFICATION DIVISION.
+02 PROGRAM-ID. HELLO.
+03 DATA DIVISION.
+04 WORKING-STORAGE SECTION.
+05 01 WS-A PIC 9(2) VALUE 0.
+06 PROCEDURE DIVISION.
+07 A-PARA.
+08 PERFORM B-PARA VARYING WS-A FROM 2 BY 2 UNTIL WS-A=12
+09 STOP RUN.
+10 B-PARA.
+11 DISPLAY 'B-PARA ' WS-A.
+12 DISPLAY 'B-PARA'.
+```
+
+---
+
+## Project Structure
+
+```
+src/
+ └─ main/
+     ├─ kotlin/
+     │   └─ com/github/tghnx1/cobolplugin/
+     │       ├─ highlighting/
+     │       ├─ psi/
+     │       ├─ CobolLanguage.kt
+     │       ├─ CobolFileType.kt
+     │       ├─ CobolLexerAdapter.kt
+     │       └─ CobolParserDefinition.kt
+     ├─ gen/        (generated parser/PSI)
+     ├─ grammars/   (.bnf grammar)
+     ├─ jflex/      (.flex lexer)
+     └─ resources/
+         └─ META-INF/plugin.xml
+```
+
+---
+
+## Constraints & Notes
+
+- Only libraries and tools from the IntelliJ tutorial are used
+- No external or ready-made COBOL grammars were used
+- The implementation intentionally remains **minimal**
+- The focus is correctness, clarity, and alignment with the assignment requirements
+
+---
+
+## How to Run
+
+1. Open the project in IntelliJ IDEA
+2. Run **Run Plugin**
+3. In the sandbox IDE, open a `.cob` or `.cbl` file
+4. Paste the provided COBOL example and verify parsing and highlighting
+
+---
+
+## Assignment Context
+
+This project was developed as a solution for **Task #2**:
+> *Implement a minimal IntelliJ IDEA plugin that can parse a minimal subset of Cobol.*
+
+---
