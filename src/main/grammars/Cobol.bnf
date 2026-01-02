@@ -6,20 +6,16 @@
   elementTypeClass="com.github.tghnx1.cobolplugin.psi.CobolElementType"
   tokenTypeClass="com.github.tghnx1.cobolplugin.psi.CobolTokenType"
 
-  tokens=[
-    PICTURE_CHAR
-    EQUALS
+  tokens = [
+    IDENTIFIER
+    NUMBER
     STRING_LITERAL
-    BY
-    PIC
-    RUN
-    DATA
-    FROM
-    STOP
-    UNTIL
-    VALUE
-    DISPLAY
+    EQUALS
+    DOT
+    LPAREN
+    RPAREN
   ]
+
 }
 
 cobolFile ::= item*
@@ -27,15 +23,7 @@ cobolFile ::= item*
 item ::= IDENTIFIER
         | NUMBER
         | DOT
-        | PICTURE_CHAR
         | EQUALS
         | STRING_LITERAL
-        | BY
-        | PIC
-        | RUN
-        | DATA
-        | FROM
-        | STOP
-        | UNTIL
-        | VALUE
-        | DISPLAY
+        | LPAREN
+        | RPAREN

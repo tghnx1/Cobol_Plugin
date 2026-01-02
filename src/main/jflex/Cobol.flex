@@ -16,28 +16,23 @@ import com.github.tghnx1.cobolplugin.psi.CobolTypes;
 
 %%
 
-/* COBOL keywords */
-"DATA"                { return CobolTypes.DATA; }
-"PIC"                 { return CobolTypes.PIC; }
-"VALUE"               { return CobolTypes.VALUE; }
-"FROM"                { return CobolTypes.FROM; }
-"BY"                  { return CobolTypes.BY; }
-"UNTIL"               { return CobolTypes.UNTIL; }
-"STOP"                { return CobolTypes.STOP; }
-"RUN"                 { return CobolTypes.RUN; }
-"DISPLAY"             { return CobolTypes.DISPLAY; }
-[9AX](\([0-9]+\))?    { return CobolTypes.PICTURE_CHAR; }
 /* string literals */
 '[^']*'               { return CobolTypes.STRING_LITERAL; }
 
 /* operators */
 "="                   { return CobolTypes.EQUALS; }
 
+[(]                   { return CobolTypes.LPAREN; }
+[)]                   { return CobolTypes.RPAREN; }
+
+"."                   { return CobolTypes.DOT; }
+
 [ \t\r\n]+            { return TokenType.WHITE_SPACE; }
 [0-9]+                { return CobolTypes.NUMBER; }
 [A-Z][A-Z0-9-]*       { return CobolTypes.IDENTIFIER; }
-"."                   { return CobolTypes.DOT; }
+
 .                     { return TokenType.BAD_CHARACTER; }
+
 
 
 
