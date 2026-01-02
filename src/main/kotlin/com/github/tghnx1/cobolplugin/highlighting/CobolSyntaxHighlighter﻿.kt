@@ -38,17 +38,8 @@ class CobolSyntaxHighlighter : SyntaxHighlighter {
             return OPERATOR_KEYS
         }
 
-
         return EMPTY_KEYS
     }
 
     companion object {
-        private val NUMBER_KEYS = arrayOf<TextAttributesKey?>(DefaultLanguageHighlighterColors.NUMBER)
-
-        private val STRING_KEYS = arrayOf<TextAttributesKey?>(DefaultLanguageHighlighterColors.STRING)
-
-        private val IDENTIFIER_KEYS = arrayOf<TextAttributesKey?>(DefaultLanguageHighlighterColors.IDENTIFIER)
-
-        private val EMPTY_KEYS = arrayOfNulls<TextAttributesKey>(0)
-    }
-}
+        private val NUMBER_KEYS = arrayOf<TextAttributesK
